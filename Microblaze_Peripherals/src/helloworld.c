@@ -114,14 +114,6 @@ void blink_led(void){
 	}
 }
 
-
-u64 read_elapsed_ticks(u64 start, u64 end) {
-    if (end >= start)
-        return end - start;
-    // handle 64-bit wraparound
-    return ((u64)0xFFFFFFFFFFFFFFFFULL - start) + end + 1;
-}
-
 void trigger_hcsr04() {
     // Set TRIG high
     XGpio_DiscreteWrite(&Gpio1, TRIG_CHANNEL, 1);
@@ -132,17 +124,17 @@ void trigger_hcsr04() {
 
 uint32_t measure_distance_us() {
 
-    u64 start = XTmrCtr_GetValue(&TimerInstance, 0);
-
     // Wait for echo HIGH
     while (XGpio_DiscreteRead(&Gpio2, ECHO_CHANNEL) == 0);
 
-    // Start counting
+    u64 start = XTmrCtr_GetValue(&TimerInstance, 0);
+
+    // Wait while high
     while (XGpio_DiscreteRead(&Gpio2, ECHO_CHANNEL) == 1);
 
-    u64 end = XTmrCtr_GetValue(&TimerInstance, 0) - start;
+    u64 delta = XTmrCtr_GetValue(&TimerInstance, 0) - start;
     
-    return (uint32_t)end;
+    return delta;
 }
 
 int main(void)
@@ -157,7 +149,7 @@ int main(void)
     }
 
     // Ensure cascade mode is set in hardware; don't use auto-reload for measuring
-    XTmrCtr_SetOptions(&TimerInstance, 0, 0); // No auto-reload
+    XTmrCtr_SetOptions(&TimerInstance, 0, XTC_CASCADE_MODE_OPTION); // so it becomes 64 bit with 2 timers. 32 bit overflows after 45 sec
     XTmrCtr_SetOptions(&TimerInstance, 1, 0);
 
     // Reset both halves 
@@ -249,8 +241,6 @@ int main(void)
     dev_id = ADXL362_ReadDeviceID(&Spi0Instance);
 	xil_printf("Dev id is: %d\r\n", dev_id);
 
-
-
     // Initialize MPU6500
     dev_id = MPU6500_Init(&Spi1Instance);
     xil_printf("WHO_AM_I = 0x%02X\r\n", dev_id);
@@ -296,7 +286,6 @@ int main(void)
             (int)gyro_dps[2], abs((int)(gyro_dps[2] * 100) % 100));
 		*/
         XGpio_DiscreteWrite(&Gpio0, LED_CHANNEL, gyro[0]);
-
 
 		trigger_hcsr04();
 		usleep(100); // allow echo to rise if needed
