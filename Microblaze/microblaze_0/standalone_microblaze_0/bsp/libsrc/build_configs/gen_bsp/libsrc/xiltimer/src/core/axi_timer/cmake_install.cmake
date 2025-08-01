@@ -1,8 +1,8 @@
-# Install script for directory: /home/ck/Desktop/Workspace/Vitis_Workspace/Microblaze_Peripherals/Microblaze/microblaze_0/standalone_microblaze_0/bsp/libsrc/xiltimer/src/core/axi_timer
+# Install script for directory: C:/Users/cenk.keskin/Desktop/Microblaze_Peripheral/Microblaze/microblaze_0/standalone_microblaze_0/bsp/libsrc/xiltimer/src/core/axi_timer
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/usr/local")
+  set(CMAKE_INSTALL_PREFIX "C:/Program Files (x86)/bsp")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -34,6 +34,6 @@ endif()
 
 # Set default install directory permissions.
 if(NOT DEFINED CMAKE_OBJDUMP)
-  set(CMAKE_OBJDUMP "/tools/Xilinx/2025.1/Vitis/gnu/microblaze/lin/bin/mb-objdump")
+  set(CMAKE_OBJDUMP "C:/Xilinx/2025.1/Vitis/gnu/microblaze/nt/bin/mb-objdump.exe")
 endif()
 

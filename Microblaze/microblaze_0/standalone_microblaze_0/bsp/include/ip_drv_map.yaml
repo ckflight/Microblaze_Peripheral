@@ -10,6 +10,9 @@ axi_gpio_2:
 axi_iic_0:
 - axi_iic
 - iic
+axi_iic_1:
+- axi_iic
+- iic
 axi_quad_spi_0:
 - axi_quad_spi
 - spi

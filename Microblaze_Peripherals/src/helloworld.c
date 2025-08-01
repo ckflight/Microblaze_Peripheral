@@ -37,6 +37,11 @@
 
 #include <stdlib.h> // abs
 
+#include "xintc.h"
+#include "xiic.h"
+#include "xil_exception.h"
+
+#define USE_HCSR04	0
 
 /*
 	NOTES:
@@ -57,7 +62,8 @@
 
 #define ECHO_CHANNEL              	1
 
-#define TIMER_FREQUENCY_HZ     		100000000ULL  /* e.g., 100 MHz */
+XIntc IntcInstance;
+XIic IicInstance;
 
 XTmrCtr TimerInstance;
 
@@ -70,6 +76,10 @@ XGpio Gpio1;
 XGpio Gpio2;
 
 XUartLite UartLite;		/* Instance of the UartLite Device */
+
+XIic IicInstance0;
+XIic IicInstance1;
+
 
 uint8_t uart_rx_buffer[512];
 uint8_t uart_tx_buffer[512];
@@ -137,14 +147,39 @@ uint32_t measure_distance_us() {
     return delta;
 }
 
+int i2c_read_register(XIic *iic, u8 slave7, u8 reg, u8 *out) {
+    int status;
+
+    // Send register address with START and STOP
+    status = XIic_Send(iic->BaseAddress, slave7 << 1, &reg, 1, XIIC_REPEATED_START);
+    if (status != XST_SUCCESS) {
+        xil_printf("I2C send error\r\n");
+        return status;
+    }
+
+    // Receive data with REPEATED START (no STOP after send)
+    status = XIic_Recv(iic->BaseAddress, (slave7 << 1) | 1, out, 1, XIIC_REPEATED_START);
+    if (status != XST_SUCCESS) {
+        xil_printf("I2C receive error\r\n");
+        return status;
+    }
+
+    return XST_SUCCESS;
+}
+
 int main(void)
 {
 	int Status;
 
+    xil_printf("CODE STARTED\r\n");
+
+
+
+
 	// Initialize timer
     Status = XTmrCtr_Initialize(&TimerInstance, XPAR_AXI_TIMER_0_BASEADDR);
     if (Status != XST_SUCCESS) {
-        printf("Timer init failed\n");
+        printf("Timer init failed\r\n");
         return -1;
     }
 
@@ -158,6 +193,57 @@ int main(void)
 
     // Start the timer (starting counter 0 will also increment the cascaded 1)
     XTmrCtr_Start(&TimerInstance, 0);
+
+
+
+
+
+    // Initialize IIC driver
+    Status = XIic_Initialize(&IicInstance0, XPAR_XIIC_0_BASEADDR);
+    if (Status != XST_SUCCESS) {
+        xil_printf("IIC Initialization Failed\r\n");
+        return XST_FAILURE;
+    }
+
+    // Start IIC device
+    Status = XIic_Start(&IicInstance0);
+    if (Status != XST_SUCCESS) {
+        xil_printf("IIC Start failed\r\n");
+        return XST_FAILURE;
+    }
+	
+	u8 temp_msb = 0;
+
+	int status = i2c_read_register(&IicInstance0, 0x48, 0x00, &temp_msb);
+	if (status == XST_SUCCESS) {
+		xil_printf("ADT7420 Temp MSB: %d\r\n", (int8_t)temp_msb);
+	} 
+	else {
+		xil_printf("I2C read failed\r\n");
+	}
+
+
+
+
+
+    // Initialize IIC driver
+    Status = XIic_Initialize(&IicInstance1, XPAR_XIIC_1_BASEADDR);
+    if (Status != XST_SUCCESS) {
+        xil_printf("IIC Initialization Failed\r\n");
+        return XST_FAILURE;
+    }
+
+    // Start IIC device
+    Status = XIic_Start(&IicInstance1);
+    if (Status != XST_SUCCESS) {
+        xil_printf("IIC Start failed\r\n");
+        return XST_FAILURE;
+    }
+	
+
+
+
+
 
 	// Initialize the GPIO driver
 	Status = XGpio_Initialize(&Gpio0, XPAR_XGPIO_0_BASEADDR);
@@ -188,6 +274,11 @@ int main(void)
 
 	XGpio_SetDataDirection(&Gpio1, ECHO_CHANNEL, 0x3); // both pins are input
 
+
+
+
+
+
 	// Initialize the UartLite driver so that it is ready to use.
 	Status = XUartLite_Initialize(&UartLite, 0);
 	if (Status != XST_SUCCESS) {
@@ -207,6 +298,10 @@ int main(void)
         return XST_FAILURE;
     }
 
+
+
+
+
     // Set options: master mode and manual slave select
     Status = XSpi_SetOptions(&Spi0Instance, XSP_MASTER_OPTION | XSP_MANUAL_SSELECT_OPTION);
     if (Status != XST_SUCCESS) {
@@ -216,6 +311,8 @@ int main(void)
 
     XSpi_Start(&Spi0Instance);// Start the SPI driver
     XSpi_IntrGlobalDisable(&Spi0Instance); // Disable global interrupt mode
+
+
 
     // SPI1 Init
     Status = XSpi_Initialize(&Spi1Instance, XPAR_AXI_QUAD_SPI_1_BASEADDR);
@@ -233,6 +330,8 @@ int main(void)
 
     XSpi_Start(&Spi1Instance);// Start the SPI driver
     XSpi_IntrGlobalDisable(&Spi1Instance); // Disable global interrupt mode
+
+
 
 
 	ADXL362_SoftReset(&Spi0Instance);
@@ -287,25 +386,38 @@ int main(void)
 		*/
         XGpio_DiscreteWrite(&Gpio0, LED_CHANNEL, gyro[0]);
 
-		trigger_hcsr04();
-		usleep(100); // allow echo to rise if needed
+		#if USE_HCSR04
+			trigger_hcsr04();
+			usleep(100); // allow echo to rise if needed
 
-		uint32_t duration_us = measure_distance_us();
-		xil_printf("Duration: %lu us\r\n", duration_us);
+			uint32_t duration_us = measure_distance_us();
+			xil_printf("Duration: %lu us\r\n", duration_us);
 
-		usleep(100); // allow echo to rise if needed
+			usleep(100); // allow echo to rise if needed
 
- 
-		/*
+		#endif
+
+		
         toggle_led(1);
 		toggle_led(2);
 		toggle_led(3);
 		toggle_led(5);
 		toggle_led(10);
 		toggle_led(16);
-		*/
 
-		usleep(10000);
+		u8 whoami = 0;
+		status = i2c_read_register(&IicInstance1, 0x68, 0x75, &whoami);
+		if (status == XST_SUCCESS) {
+			xil_printf("WHO_AM_I = 0x%02X\r\n", whoami);
+		} 
+		else {
+			xil_printf("I2C read failed\r\n");
+		}
+
+
+		
+
+		usleep(50000);
 	}
 
 }

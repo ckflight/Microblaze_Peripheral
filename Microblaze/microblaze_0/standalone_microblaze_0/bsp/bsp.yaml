@@ -1,11 +1,11 @@
-sdt: hw_artifacts/microblaze_0_baremetal.dts
+sdt: hw_artifacts\microblaze_0_baremetal.dts
 family: artix7
-path: /home/ck/Desktop/Workspace/Vitis_Workspace/Microblaze_Peripherals/Microblaze/microblaze_0/standalone_microblaze_0/bsp
+path: C:\Users\cenk.keskin\Desktop\Microblaze_Peripheral\Microblaze\microblaze_0\standalone_microblaze_0\bsp
 config: None
 os: standalone
 os_info:
   standalone:
-    path: /tools/Xilinx/2025.1/Vitis/data/embeddedsw/lib/bsp/standalone_v9_3
+    path: C:\Xilinx\2025.1\Vitis\data\embeddedsw\lib\bsp\standalone_v9_3
 os_config:
   standalone:
     standalone_enable_sw_intrusive_profiling:
@@ -63,8 +63,8 @@ os_config:
       default: axi_uartlite_0
       options:
       - None
-      - axi_uartlite_0
       - mdm_1
+      - axi_uartlite_0
       description: stdin peripheral
     standalone_stdout:
       name: standalone_stdout
@@ -74,8 +74,8 @@ os_config:
       default: axi_uartlite_0
       options:
       - None
-      - axi_uartlite_0
       - mdm_1
+      - axi_uartlite_0
       description: stdout peripheral
     standalone_ttc_select_cntr:
       name: standalone_ttc_select_cntr
@@ -106,7 +106,7 @@ proc_config:
       permission: readonly
       type: string
       value: mb-gcc-ar
-      default: mb-gcc-ar
+      default: mb-gcc-ar.exe
       options: []
       description: Archiver used to archive libraries for both BSP generation as well
         as applications.
@@ -123,7 +123,7 @@ proc_config:
       permission: readonly
       type: string
       value: mb-gcc
-      default: mb-gcc
+      default: mb-gcc.exe
       options: []
       description: Compiler used to compile both BSP/libraries and applications.
     proc_compiler_flags:
@@ -157,99 +157,54 @@ drv_info:
   axi_gpio_0:
     driver: gpio
     ip_name: axi_gpio
-    path: /tools/Xilinx/2025.1/Vitis/data/embeddedsw/XilinxProcessorIPLib/drivers/gpio_v4_12
-    examples:
-      xgpio_example.c: []
-      xgpio_low_level_example.c: []
-      xgpio_tapp_example.c: []
+    path: C:\Xilinx\2025.1\Vitis\data\embeddedsw\XilinxProcessorIPLib\drivers\gpio_v4_12
   axi_gpio_1:
     driver: gpio
     ip_name: axi_gpio
-    path: /tools/Xilinx/2025.1/Vitis/data/embeddedsw/XilinxProcessorIPLib/drivers/gpio_v4_12
-    examples:
-      xgpio_example.c: []
-      xgpio_low_level_example.c: []
-      xgpio_tapp_example.c: []
+    path: C:\Xilinx\2025.1\Vitis\data\embeddedsw\XilinxProcessorIPLib\drivers\gpio_v4_12
   axi_gpio_2:
     driver: gpio
     ip_name: axi_gpio
-    path: /tools/Xilinx/2025.1/Vitis/data/embeddedsw/XilinxProcessorIPLib/drivers/gpio_v4_12
-    examples:
-      xgpio_example.c: []
-      xgpio_low_level_example.c: []
-      xgpio_tapp_example.c: []
+    path: C:\Xilinx\2025.1\Vitis\data\embeddedsw\XilinxProcessorIPLib\drivers\gpio_v4_12
   axi_iic_0:
     driver: iic
     ip_name: axi_iic
-    path: /tools/Xilinx/2025.1/Vitis/data/embeddedsw/XilinxProcessorIPLib/drivers/iic_v3_13
-    examples:
-      xiic_low_level_dynamic_eeprom_example.c: []
-      xiic_low_level_eeprom_example.c: []
-      xiic_low_level_tempsensor_example.c: []
-      xiic_selftest_example.c: []
+    path: C:\Xilinx\2025.1\Vitis\data\embeddedsw\XilinxProcessorIPLib\drivers\iic_v3_13
+  axi_iic_1:
+    driver: iic
+    ip_name: axi_iic
+    path: C:\Xilinx\2025.1\Vitis\data\embeddedsw\XilinxProcessorIPLib\drivers\iic_v3_13
   axi_quad_spi_0:
     driver: spi
     ip_name: axi_quad_spi
-    path: /tools/Xilinx/2025.1/Vitis/data/embeddedsw/XilinxProcessorIPLib/drivers/spi_v4_14
-    examples:
-      xspi_polled_example.c: []
-      xspi_slave_polled_example.c: []
-      xspi_low_level_example.c: []
-      xspi_winbond_flash_xip_example.c: []
-      xspi_selftest_example.c: []
-      xspi_stm_flash_example.c: []
+    path: C:\Xilinx\2025.1\Vitis\data\embeddedsw\XilinxProcessorIPLib\drivers\spi_v4_14
   axi_quad_spi_1:
     driver: spi
     ip_name: axi_quad_spi
-    path: /tools/Xilinx/2025.1/Vitis/data/embeddedsw/XilinxProcessorIPLib/drivers/spi_v4_14
-    examples:
-      xspi_polled_example.c: []
-      xspi_slave_polled_example.c: []
-      xspi_low_level_example.c: []
-      xspi_winbond_flash_xip_example.c: []
-      xspi_selftest_example.c: []
-      xspi_stm_flash_example.c: []
+    path: C:\Xilinx\2025.1\Vitis\data\embeddedsw\XilinxProcessorIPLib\drivers\spi_v4_14
   axi_timer_0:
     driver: tmrctr
     ip_name: axi_timer
-    path: /tools/Xilinx/2025.1/Vitis/data/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr_v4_13
-    examples:
-      xtmrctr_selftest_example.c: []
-      xtmrctr_polled_example.c: []
-      xtmrctr_low_level_example.c: []
+    path: C:\Xilinx\2025.1\Vitis\data\embeddedsw\XilinxProcessorIPLib\drivers\tmrctr_v4_13
   axi_uartlite_0:
     driver: uartlite
     ip_name: axi_uartlite
-    path: /tools/Xilinx/2025.1/Vitis/data/embeddedsw/XilinxProcessorIPLib/drivers/uartlite_v3_11
-    examples:
-      xuartlite_low_level_example.c: []
-      xuartlite_polled_example.c: []
-      xuartlite_selftest_example.c: []
+    path: C:\Xilinx\2025.1\Vitis\data\embeddedsw\XilinxProcessorIPLib\drivers\uartlite_v3_11
   mdm_1:
     driver: uartlite
     ip_name: mdm
-    path: /tools/Xilinx/2025.1/Vitis/data/embeddedsw/XilinxProcessorIPLib/drivers/uartlite_v3_11
-    examples:
-      xuartlite_low_level_example.c: []
-      xuartlite_polled_example.c: []
-      xuartlite_selftest_example.c: []
+    path: C:\Xilinx\2025.1\Vitis\data\embeddedsw\XilinxProcessorIPLib\drivers\uartlite_v3_11
   microblaze_0_axi_intc:
     driver: intc
     ip_name: axi_intc
-    path: /tools/Xilinx/2025.1/Vitis/data/embeddedsw/XilinxProcessorIPLib/drivers/intc_v3_20
-    examples:
-      xintc_example.c: []
-      xintc_low_level_example.c: []
-      xintc_tapp_example.c: []
+    path: C:\Xilinx\2025.1\Vitis\data\embeddedsw\XilinxProcessorIPLib\drivers\intc_v3_20
   microblaze_0_local_memory_dlmb_bram_if_cntlr:
     driver: bram
     ip_name: lmb_bram_if_cntlr
-    path: /tools/Xilinx/2025.1/Vitis/data/embeddedsw/XilinxProcessorIPLib/drivers/bram_v4_12
-    examples:
-      xbram_example.c: []
+    path: C:\Xilinx\2025.1\Vitis\data\embeddedsw\XilinxProcessorIPLib\drivers\bram_v4_12
 lib_info:
   xiltimer:
-    path: /tools/Xilinx/2025.1/Vitis/data/embeddedsw/lib/sw_services/xiltimer_v2_2
+    path: C:\Xilinx\2025.1\Vitis\data\embeddedsw\lib\sw_services\xiltimer_v2_2
 lib_config:
   xiltimer:
     XILTIMER_en_interval_timer:

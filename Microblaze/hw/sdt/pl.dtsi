@@ -178,7 +178,7 @@
 			#interrupt-cells = <2>;
 			xlnx,sense-of-irq-edge-type = "Rising";
 			xlnx,edk-special = "INTR_CTRL";
-			xlnx,kind-of-intr = <0x3>;
+			xlnx,kind-of-intr = <0xc>;
 			xlnx,kind-of-edge = <0xffffffff>;
 			xlnx,irq-is-level = <1>;
 			xlnx,has-ivr = <1>;
@@ -195,7 +195,7 @@
 			xlnx,s-axi-aclk-freq-mhz = <100>;
 			xlnx,num-sw-intr = <0>;
 			xlnx,irq-connection = <0>;
-			xlnx,num-intr-inputs = <0x2>;
+			xlnx,num-intr-inputs = <0x4>;
 			xlnx,has-sie = <1>;
 			xlnx,enable-async = <0>;
 			xlnx,has-cie = <1>;
@@ -211,7 +211,7 @@
 			xlnx,has-fast = <1>;
 			xlnx,ivar-rst-val = <0x10>;
 			interrupt-controller;
-			xlnx,async-intr = <0xffffffff>;
+			xlnx,async-intr = <0xfffffffd>;
 			xlnx,name = "microblaze_0_axi_intc";
 		};
 		axi_gpio_0: gpio@40000000 {
@@ -296,10 +296,12 @@
 			xlnx,all-inputs = <1>;
 		};
 		axi_iic_0: i2c@40800000 {
-			xlnx,iic-freq-khz = <100>;
+			interrupts = < 0 2 >;
+			xlnx,iic-freq-khz = <400>;
 			compatible = "xlnx,axi-iic-2.1" , "xlnx,xps-iic-2.00.a";
 			xlnx,scl-inertial-delay = <0>;
 			clock-frequency = <100000000>;
+			interrupt-parent = <&microblaze_0_axi_intc>;
 			xlnx,ip-name = "axi_iic";
 			xlnx,disable-setup-violation-check = <0>;
 			reg = <0x40800000 0x10000>;
@@ -311,11 +313,36 @@
 			status = "okay";
 			xlnx,ten-bit-adr = <0>;
 			xlnx,default-value = <0x0>;
+			interrupt-names = "iic2intc_irpt";
 			xlnx,iic-board-interface = "Custom";
 			xlnx,timing-reg-width = <32>;
-			xlnx,iic-freq = <100000>;
+			xlnx,iic-freq = <400000>;
 			xlnx,smbus-pmbus-host = <0>;
 			xlnx,name = "axi_iic_0";
+			xlnx,axi-aclk-freq-mhz = <100>;
+			xlnx,sda-inertial-delay = <0>;
+		};
+		axi_iic_1: i2c@40810000 {
+			xlnx,iic-freq-khz = <400>;
+			compatible = "xlnx,axi-iic-2.1" , "xlnx,xps-iic-2.00.a";
+			xlnx,scl-inertial-delay = <0>;
+			clock-frequency = <100000000>;
+			xlnx,ip-name = "axi_iic";
+			xlnx,disable-setup-violation-check = <0>;
+			reg = <0x40810000 0x10000>;
+			clocks = <&clk_bus_0>;
+			xlnx,gpo-width = <1>;
+			xlnx,edk-iptype = "PERIPHERAL";
+			xlnx,static-timing-reg-width = <0>;
+			xlnx,sda-level = <1>;
+			status = "okay";
+			xlnx,ten-bit-adr = <0>;
+			xlnx,default-value = <0x0>;
+			xlnx,iic-board-interface = "Custom";
+			xlnx,timing-reg-width = <32>;
+			xlnx,iic-freq = <400000>;
+			xlnx,smbus-pmbus-host = <0>;
+			xlnx,name = "axi_iic_1";
 			xlnx,axi-aclk-freq-mhz = <100>;
 			xlnx,sda-inertial-delay = <0>;
 		};

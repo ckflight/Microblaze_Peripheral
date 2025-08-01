@@ -3,8 +3,8 @@
   "type": "PLATFORM",
   "configuration": {
     "description": "",
-    "xsa": "/home/ck/Desktop/Workspace/FPGA_Workspace/VIVADO_PROJECTS/XC7A100T_Microblaze/top_module.xsa",
-    "xsaPathInPlatform": "Microblaze/hw/top_module.xsa",
+    "xsa": "C:\\Users\\cenk.keskin\\Desktop\\XC7A100T_Microblaze\\top_module.xsa",
+    "xsaPathInPlatform": "Microblaze\\hw\\top_module.xsa",
     "emulationXsa": "",
     "emulationXsaPathInPlatform": "",
     "isCustomFSBL": false,

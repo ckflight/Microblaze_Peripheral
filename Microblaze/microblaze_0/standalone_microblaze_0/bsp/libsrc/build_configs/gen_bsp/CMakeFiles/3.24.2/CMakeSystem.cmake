@@ -1,9 +1,9 @@
-set(CMAKE_HOST_SYSTEM "Linux-6.14.0-24-generic")
-set(CMAKE_HOST_SYSTEM_NAME "Linux")
-set(CMAKE_HOST_SYSTEM_VERSION "6.14.0-24-generic")
-set(CMAKE_HOST_SYSTEM_PROCESSOR "x86_64")
+set(CMAKE_HOST_SYSTEM "Windows-10.0.19045")
+set(CMAKE_HOST_SYSTEM_NAME "Windows")
+set(CMAKE_HOST_SYSTEM_VERSION "10.0.19045")
+set(CMAKE_HOST_SYSTEM_PROCESSOR "AMD64")
 
-include("/home/ck/Desktop/Workspace/Vitis_Workspace/Microblaze_Peripherals/Microblaze/microblaze_0/standalone_microblaze_0/bsp/microblaze_toolchain.cmake")
+include("C:/Users/cenk.keskin/Desktop/Microblaze_Peripheral/Microblaze/microblaze_0/standalone_microblaze_0/bsp/microblaze_toolchain.cmake")
 
 set(CMAKE_SYSTEM "Generic")
 set(CMAKE_SYSTEM_NAME "Generic")

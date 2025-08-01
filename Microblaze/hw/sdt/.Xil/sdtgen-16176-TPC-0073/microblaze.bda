@@ -316,6 +316,24 @@
             },
             "V10": {
                 "VT": "AC",
+                "BA": "0x40810000",
+                "HA": "0x4081FFFF",
+                "BP": "C_BASEADDR",
+                "HP": "C_HIGHADDR",
+                "MA": "Data",
+                "MX": "/microblaze_0",
+                "MI": "M_AXI_DP",
+                "MS": "SEG_axi_iic_1_Reg",
+                "MV": "xilinx.com:ip:microblaze:11.0",
+                "SX": "/axi_iic_1",
+                "SI": "S_AXI",
+                "SS": "Reg",
+                "SV": "xilinx.com:ip:axi_iic:2.1",
+                "TM": "data",
+                "TU": "register"
+            },
+            "V11": {
+                "VT": "AC",
                 "BA": "0x41200000",
                 "HA": "0x4120FFFF",
                 "BP": "C_BASEADDR",
@@ -333,7 +351,7 @@
                 "TM": "data",
                 "TU": "register"
             },
-            "V11": {
+            "V12": {
                 "VT": "AC",
                 "BA": "0x41400000",
                 "HA": "0x41400FFF",
@@ -351,7 +369,7 @@
                 "TM": "data",
                 "TU": "register"
             },
-            "V12": {
+            "V13": {
                 "VT": "AC",
                 "BA": "0x41C00000",
                 "HA": "0x41C0FFFF",
@@ -369,7 +387,7 @@
                 "TM": "data",
                 "TU": "register"
             },
-            "V13": {
+            "V14": {
                 "VT": "AC",
                 "BA": "0x44A00000",
                 "HA": "0x44A0FFFF",
@@ -387,7 +405,7 @@
                 "TM": "data",
                 "TU": "register"
             },
-            "V14": {
+            "V15": {
                 "VT": "AC",
                 "BA": "0x44A10000",
                 "HA": "0x44A1FFFF",
@@ -472,6 +490,11 @@
             },
             {
                 "src": "V14",
+                "trg": "V2",
+                "EH": "2"
+            },
+            {
+                "src": "V15",
                 "trg": "V2",
                 "EH": "2"
             }
